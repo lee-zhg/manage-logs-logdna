@@ -56,11 +56,33 @@ Before deploying petclinic application to IKS cluster, you need to get your work
 
 ### Clone the repo
 
+In the `IBM Cloud Shell`, clone the repo.
+
+  ```
+  git clone https://github.com/lee-zhg/manage-logs-logdna
+
+  cd manage-logs-logdna
+  ```
 
 
 ### Deploy petclinic application
 
+In the `IBM Cloud Shell`, deploy the sample petclinic application.
 
+1. Deploy four microservices of the sample petclinic application. `Deployment` and `Service` resources are created for each microservice component.
+
+  ```
+  k8s/deploy-petclinic.sh
+  ```
+
+1. Verify the deployment.
+
+  ```
+  kubectl get pods
+  kubectl get svc
+  ```
+
+1. 
 
 
 
