@@ -1,3 +1,73 @@
+# Manage logs with LogDNA in IBM Cloud
+
+
+
+Adopted from repo [Spring PetClinic Microservice example running on Kubernetes(in Korean)](https://github.com/hongjsk/spring-petclinic-kubernetes) and [Analyze logs and monitor application health with LogDNA and Sysdig](https://cloud.ibm.com/docs/solution-tutorials?topic=solution-tutorials-application-log-analysis).
+
+
+
+## Pre-requisites
+
+* an IBM Cloud account
+* a Kubernetes cluster running in IBM cloud (IKS)
+
+> Note: it's highly recommended to enable `private endpoints` (or private service endpoint) when you create your Kubernetes cluster in IBM Cloud. The `private endpoints` can also be enabled after the cluster is created. This provides the option to use the `private endpoints` when configuring LogDNA to collect logs from your application deployed to IKS cluster.
+
+!["iks_private_endpoints"](doc/images/iks_private_endpoints.png)
+
+
+## Sample application architecture
+
+A simplified version of `petclinic` application is used in this repo. It includes four microservice components.
+  * api-gateway
+  * customers
+  * vets
+  * visits
+
+!["iks_private_endpoints"](doc/images/petclinic_architecture.png)
+
+The complete version of `petclinic` application with microservice architecture is available [here](https://github.com/spring-petclinic/spring-petclinic-microservices).
+
+
+## Deploy sample application to IKS cluster
+
+[IBM Cloud Shell](https://cloud.ibm.com/shell) is used to deploy the petclinc sample application in this repo. You may use other terminal options if required CLI tools are installed.
+
+### Preparation
+
+Before deploying petclinic application to IKS cluster, you need to get your working environment ready.
+
+1. Login to [IBM Cloud](https://cloud.ibm.com) in a browser.
+
+1. Navigate to https://cloud.ibm.com/kubernetes/clusters to see a list of available IKS clusters.
+
+1. select your IKS cluster from the list to open it.
+
+1. In the left pane, select `Access` option. This page provides CLI commands to setup your terminal environment to work with your IKS cluster. It also has a link to start a `IBM Cloud Shell`.
+
+    !["access_iks_cluster"](doc/images/access_iks_cluster.png)
+
+1. Click `IBM Cloud Shell` link next to your account number on the toolbar. It's on the top-right corner of the screen. This opens `IBM Cloud Shell` window in a new tab of your browser.
+
+1. Execute the CLI commands in the `Access` tab of your IKS cluster (see above) sequentially to connect to your cluster.
+
+1. Use CLI command `kubectl config current-context` to verify the connection to your cluster before continue the exercise.
+
+
+### Clone the repo
+
+
+
+### Deploy petclinic application
+
+
+
+
+
+
+
+
+
 # Kubernetes에서 실행되는 Spring PetClinic Microservice 예제
 
 이 애플리케이션의 코드는 [Spring PetClinic Microservices version](https://github.com/spring-petclinic/spring-petclinic-microservices)을 기반으로 작성되었습다. [Spring Cloud Netflix](https://github.com/spring-cloud/spring-cloud-netflix)를 이용하여 구성된 마이크로 서비스를 Kubernetes에서 실행하도록 몇 가지 의존성과 코드를 제거할 뿐 최대한 원본 코드를 유지한 형태로 구성하는 것을 목표로 구성되었습니다. 
