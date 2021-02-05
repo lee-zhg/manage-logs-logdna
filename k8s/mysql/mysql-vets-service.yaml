@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vets
@@ -7,6 +7,10 @@ metadata:
 spec:
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: spring-petclinic
+      tier: vets
   template:
     metadata:
       labels:
@@ -14,7 +18,7 @@ spec:
         tier: vets
     spec:
       containers:
-        - image: hongjs/spring-petclinic-vets-service:latest
+        - image: leezhang/spring-petclinic-vets-service:latest
           imagePullPolicy: Always
           name: vets
           ports:
@@ -37,3 +41,5 @@ spec:
                 key: password
           - name: spring.profiles.active
             value: mysql
+          - name: MYSQL_DATABASE
+            value: petclinic
