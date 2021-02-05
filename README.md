@@ -71,18 +71,187 @@ In the `IBM Cloud Shell`, deploy the sample petclinic application.
 
 1. Deploy four microservices of the sample petclinic application. `Deployment` and `Service` resources are created for each microservice component.
 
+    ```
+    k8s/deploy-petclinic.sh
+    ```
+
+1. Verify the deployment resources.
+
+    ```
+    kubectl get pods
+
+    NAME                           READY   STATUS    RESTARTS   AGE
+    api-gateway-575f59b7d8-hwnct   1/1     Running   0          32s
+    customers-687749cfb-cjcpc      1/1     Running   0          32s
+    vets-6bb6655b7f-8x2tg          1/1     Running   0          31s
+    visits-784749c647-l8btx        1/1     Running   0          30s
+    ```
+
+1. Verify the service resources.
+
+    ```
+    kubectl get svc
+
+    NAME                TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+    api-gateway         NodePort    172.21.212.167   <none>        80:32002/TCP   88s
+    customers-service   NodePort    172.21.145.118   <none>        80:32003/TCP   88s
+    kubernetes          ClusterIP   172.21.0.1       <none>        443/TCP        2d22h
+    vets-service        NodePort    172.21.17.247    <none>        80:32005/TCP   87s
+    visits-service      NodePort    172.21.165.91    <none>        80:32004/TCP   86s
+    ```
+
+### Deploy Ingress resource
+
+When deployed the sample application to a non-Lite tier IKS cluster, it's possible to expose the application with an external hostname.
+
+1. Retrieve `Ingress Subdomain`.
+
+    ```
+    ibmcloud ks cluster get -c <mycluster>
+
+    Retrieving cluster mycluster...
+    OK
+                                
+    Name:                           mycluster
+    ID:                             xxxx
+    State:                          normal
+    Created:                        2019-03-20T06:13:44+0000
+    Location:                       seo01
+    Master URL:                     https://xxx.xxx.xxx:xxxx
+    Public Service Endpoint URL:    https://xxx.xxx.xxx:xxxx
+    Private Service Endpoint URL:   -
+    Master Location:                seo01
+    Master Status:                  Ready (1 day ago)
+    Master State:                   deployed
+    Master Health:                  normal
+    Ingress Subdomain:              mycluster.seo01.containers.appdomain.cloud
+    Ingress Secret:                 mycluster
+    Workers:                        1
+    Worker Zones:                   seo01
+    Version:                        1.12.9_1555* (1.13.6_1524 latest)
+    Owner:                          xxxx@xxxx.xxx
+    Monitoring Dashboard:           -
+    Resource Group ID:              xxxxxxxxxxx
+    Resource Group Name:            default
+    ```
+
+1. Modfyi `k8s/ingress.yaml` file.
+
+    * Open `k8s/ingress.yaml` file in an editor.
+
+    * Locate the section,
+
+        ```
+        spec:
+          rules:
+          - host: petclinic.<INGRESS_SUBDOMAIN>   
+        ```
+
+    * Replace `<INGRESS_SUBDOMAIN>` with the value that you retrieved in the previous step.
+
+    * Save the changes.
+
+1. Deploy Ingress resourcve
+
   ```
-  k8s/deploy-petclinic.sh
+  kubectl create -f k8s/ingress.yaml
   ```
 
-1. Verify the deployment.
+### Verify petclinic application
+
+If everything does as planned, the `petclinic` application can be accessed at `https://petclinic.<INGRESS_SUBDOMAIN>`. By default, an internal database is used to stored data.
+
+
+### Deploy MYSQL database to the IKS cluster (Optionally)
+
+Instead of running the `petclinic` application on an internal database, you may choose to deploy an instance of `MYSQL` database on the same IKS cluster.
+
+
+#### Prepare Persisent Volume
+
+There are various persistent storage options to store the data of `MYSQL` DATABASE, local storage and cloud storage and etc. For the simplicity, the local file system system on the Node server is used for this repo. Execute the command below to create a 5Gi local-volume.
 
   ```
-  kubectl get pods
-  kubectl get svc
+  kubectl create -f local-volumes.yaml
   ```
 
-1. 
+#### Create a secret storing MYSQL credential
+
+User and password of `MYSQL` database is stored in a `secret` resource for security reason.
+
+  ```
+  kubectl create -f k8s/mysql/mysql-secret.yaml
+  ```
+
+#### Deploy MYSQL database
+
+One deployment, one service and one persistent-volume-claim resources are created when deploying `MYSQL` database.
+
+  ```
+  kubectl create -f k8s/mysql/mysql.yaml
+  ```
+
+#### Populate MYSQL database
+
+To populate MYSQL database running on the cluster,
+
+1. Retrieve the pod information where MYSQL database is running.
+
+  ```
+  kubectl get pod -l app=mysql
+  NAME                     READY   STATUS    RESTARTS   AGE
+  mysql-6d87765586-2q7sn   1/1     Running   0          19h
+  ```
+
+1. Copy SQL files to the pod.
+
+  ```
+  kubectl cp k8s/mysql/sql/mysql-schema.sql <MYSQL_POD_NAME>:/tmp/
+  kubectl cp k8s/mysql/sql/mysql-data.sql <MYSQL_POD_NAME>:/tmp/
+  ```
+
+1. Populate MYSQL database
+
+  ```
+  kubectl exec <MYSQL_POD_NAME> -- sh -c 'mysql -uroot -ppetclinic petclinic < /tmp/mysql-schema.sql'
+  kubectl exec <MYSQL_POD_NAME> -- sh -c 'mysql -uroot -ppetclinic petclinic < /tmp/mysql-data.sql'
+  ```
+
+1. Retrieve data from MYSQL database for verification.
+
+  ```
+  kubectl exec <MYSQL_POD_NAME> -- sh -c 'mysql -u root -ppetclinic -e "select * from vets" petclinic'
+
+  mysql: [Warning] Using a password on the command line interface can be insecure.
+  id	first_name	last_name
+  1 James	Carter
+  2	Helen	Leary
+  3	Linda	Douglas
+  4	Rafael	Ortega
+  5	Henry	Stevens
+  6	Sharon	Jenkins
+  mysql: [Warning] Using a password on the command line interface can be insecure.
+  ```
+
+### Run sample application on MYSQL database 
+
+`MYSQL` database has been successfully deployed in the IKS cluster. Now, you are goint to run the sample `petclinic` application on MYSQL database instead of the internal database.
+
+#### Store database connection information in configMap
+
+To store MYSQL database connection information in `configMap` resource,
+
+  ```
+  kubectl create -f k8s/mysql/mysql-configmap.yaml
+  ```
+
+#### Modify sample application deployment to run on MySQL DB
+
+  ```
+  kubectl apply -f k8s/mysql/mysql-customers-service.yaml
+  kubectl apply -f k8s/mysql/mysql-vets-service.yaml
+  kubectl apply -f k8s/mysql/mysql-visits-service.yaml
+  ```
 
 
 
