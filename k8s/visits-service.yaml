@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: visits
@@ -7,6 +7,12 @@ metadata:
 spec:
   strategy:
     type: Recreate
+
+  selector:
+    matchLabels:
+      app: spring-petclinic
+      tier: visits
+
   template:
     metadata:
       labels:
@@ -14,7 +20,7 @@ spec:
         tier: visits
     spec:
       containers:
-        - image: hongjs/spring-petclinic-visits-service:latest
+        - image: leezhang/spring-petclinic-visits-service:latest
           imagePullPolicy: Always
           name: visits
           ports:
