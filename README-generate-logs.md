@@ -56,7 +56,7 @@ To generate application log entries,
 
 1. Review log entries of `customers` component.
 
-  * Retrieve `Pod` information of `customers` component.
+    * Retrieve `Pod` information of `customers` component.
 
         ```
         kubectl get pods -l tier=customers
@@ -65,7 +65,7 @@ To generate application log entries,
         customers-98d7b966c-8wx5x   1/1     Running   0          89m
         ```
 
-  * Retrieve log entries of `customers` component.
+    * Retrieve log entries of `customers` component.
 
       ```
       kubectl logs <Customers Pod Name>
@@ -73,7 +73,7 @@ To generate application log entries,
 
 1. Review log entries of `vets` component.
 
-  * Retrieve `Pod` information of `vets` component.
+     * Retrieve `Pod` information of `vets` component.
 
         ```
         kubectl get pods -l tier=vets
@@ -82,7 +82,7 @@ To generate application log entries,
         customers-98d7b966c-8wx5x   1/1     Running   0          89m
         ```
 
-  * Retrieve log entries of `vets` component.
+    * Retrieve log entries of `vets` component.
 
       ```
       kubectl logs <Vets Pod Name>
@@ -90,7 +90,7 @@ To generate application log entries,
 
 1. Review log entries of `visits` component.
 
-  * Retrieve `Pod` information of `visits` component.
+    * Retrieve `Pod` information of `visits` component.
 
       ```
       kubectl get pods -l tier=visits
@@ -99,7 +99,7 @@ To generate application log entries,
       customers-98d7b966c-8wx5x   1/1     Running   0          89m
       ```
 
-  * Retrieve log entries of `visits` component.
+    * Retrieve log entries of `visits` component.
 
       ```
       kubectl logs <Visits Pod Name>
