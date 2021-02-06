@@ -4,6 +4,12 @@
 
 In the `IBM Cloud Shell`, deploy the sample petclinic application.
 
+1. Prepare the deployment script.
+
+    ```
+    chmod +x k8s/deploy-petclinic.sh
+    ```
+
 1. Deploy four microservices of the sample petclinic application. `Deployment` and `Service` resources are created for each microservice component.
 
     ```
@@ -146,24 +152,30 @@ To populate MYSQL database running on the cluster,
   mysql-6d87765586-2q7sn   1/1     Running   0          19h
   ```
 
+1. Store the pod name of MYSQL. 
+
+  ```
+  export MYSQL_POD=<MYSQL POD NAME>
+  ```
+
 1. Copy SQL files to the pod.
 
   ```
-  kubectl cp k8s/mysql/sql/mysql-schema.sql <MYSQL_POD_NAME>:/tmp/
-  kubectl cp k8s/mysql/sql/mysql-data.sql <MYSQL_POD_NAME>:/tmp/
+  kubectl cp k8s/mysql/sql/mysql-schema.sql $MYSQL_POD:/tmp/
+  kubectl cp k8s/mysql/sql/mysql-data.sql $MYSQL_POD:/tmp/
   ```
 
 1. Populate MYSQL database
 
   ```
-  kubectl exec <MYSQL_POD_NAME> -- sh -c 'mysql -uroot -ppetclinic petclinic < /tmp/mysql-schema.sql'
-  kubectl exec <MYSQL_POD_NAME> -- sh -c 'mysql -uroot -ppetclinic petclinic < /tmp/mysql-data.sql'
+  kubectl exec $MYSQL_POD -- sh -c 'mysql -uroot -ppetclinic petclinic < /tmp/mysql-schema.sql'
+  kubectl exec $MYSQL_POD -- sh -c 'mysql -uroot -ppetclinic petclinic < /tmp/mysql-data.sql'
   ```
 
 1. Retrieve data from MYSQL database for verification.
 
   ```
-  kubectl exec <MYSQL_POD_NAME> -- sh -c 'mysql -u root -ppetclinic -e "select * from vets" petclinic'
+  kubectl exec $MYSQL_POD -- sh -c 'mysql -u root -ppetclinic -e "select * from vets" petclinic'
 
   mysql: [Warning] Using a password on the command line interface can be insecure.
   id	first_name	last_name
@@ -177,7 +189,7 @@ To populate MYSQL database running on the cluster,
 
 ## Step 5 - Run sample application on MYSQL database 
 
-`MYSQL` database has been successfully deployed in the IKS cluster. Now, you are goint to run the sample `petclinic` application on MYSQL database instead of the internal database.
+`MYSQL` database has been successfully deployed in the same IKS cluster. Now, you are goint to run the sample `petclinic` application on MYSQL database instead of the internal database.
 
 ### Step 5.1 - Store database connection information in configMap
 

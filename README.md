@@ -34,8 +34,10 @@ The complete version of `petclinic` application with microservice architecture i
 
   * Lab 1 - [Prepare exercise environment](README-preparation.md)
   * Lab 2 - [Deploy sample application to IKS cluster](README-deploy-app.md)
-  * Lab 3 - []()
-  * Lab 4 - []()
+  * Lab 3 - [Deploy and Setup IBM Log Analysis with LogDNA](README-setup-logdna.md)
+  * Lab 4 - [Generate application log entries](README-generate-logs.md)
+  * Lab 5 - [Work with your logs in IBM Log Analysis with LogDNA]()
+  * Lab 6 - [Log streaming]()
 
 
 ## Related Links
@@ -52,8 +54,4 @@ There is lots of great information, tutorials, articles, etc on the [IBM Develop
 ## General Links
 
 - [IBM Developer](https://developer.ibm.com)
-- [Watson Studio](https://dataplatform.ibm.com/)
-- [Watson Studio Overview](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-ws.html?audience=wdp&context=wdp&linkInPage=true)
-- [Watson Machine Learning Python SDK](https://wml-api-pyclient.mybluemix.net/)
-- [Watson Studio Video Learning Center](https://www.youtube.com/playlist?list=PLzpeuWUENMK3u3j_hffhNZX3-Jkht3N6V)
-- [Data Science Code Patterns](https://developer.ibm.com/code/technologies/data-science/)
+
