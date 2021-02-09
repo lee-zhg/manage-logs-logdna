@@ -34,7 +34,13 @@ To generate application log entries,
 1. Copy/paste and Execute the following command in the pod. The script sends 100 requests to each service component.
 
     ```
-    for i in `seq 1 100` ; do wget -q -O - http://customers-service/owners && wget -q -O - http://vets-service/vets && wget -q -O - http://visits-service/pets/visits?petId=7 &&  wget -q -O - http://petclinic.leez-iks05-dc-2bef1f4b4097001da9502000c44fc2b2-0000.us-east.containers.appdomain.cloud/#!/welcome; done
+    for i in `seq 1 100` ; do wget -q -O - http://customers-service/owners && wget -q -O - http://vets-service/vets && wget -q -O - http://visits-service/pets/visits?petId=7 &&  wget -q -O - http://petclinic.<INGRESS_SUBDOMAIN>/#!/welcome; done
+    ```
+
+    For example, 
+
+    ```
+    for i in `seq 1 100` ; do wget -q -O - http://customers-service/owners && wget -q -O - http://vets-service/vets && wget -q -O - http://visits-service/pets/visits?petId=7 &&  wget -q -O - http://petclinic.leez-iks03-f0093114134cf555e1a213f3756140db-0000.us-east.containers.appdomain.cloud/#!/welcome; done
     ```
 
 1. Exit the pod.

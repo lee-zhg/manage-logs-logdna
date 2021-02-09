@@ -25,7 +25,7 @@ To deploy an instance of `IBM Log Analysis with LogDNA`,
     !["Created IBM Log Analysis with LogDNA"](doc/images/observability02.png)
 
 
-## Step 2 - Install LogDNA agent on IKS cluster
+## Step 2 - Connect your application and IKS cluster to LogDNA
 
 To collect logs from IKS cluster and related applications, LogDNA agent will be installed on each node of the cluster.
 

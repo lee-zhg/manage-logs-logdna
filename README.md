@@ -36,16 +36,16 @@ The complete version of `petclinic` application with microservice architecture i
   * Lab 2 - [Deploy sample application to IKS cluster](README-deploy-app.md)
   * Lab 3 - [Deploy and Setup IBM Log Analysis with LogDNA](README-setup-logdna.md)
   * Lab 4 - [Generate application log entries](README-generate-logs.md)
-  * Lab 5 - [Work with your logs in IBM Log Analysis with LogDNA]()
-  * Lab 6 - [Log streaming]()
+  * Lab 5 - [Work with your logs via LogDNA](README-logs-logdna.md)
+  * Lab 6 - [Log streaming via LogDNA]()
 
 
 ## Related Links
 
 There is lots of great information, tutorials, articles, etc on the [IBM Developer site](https://developer.ibm.com) as well as broader web. Here are a subset of good examples related to data understanding, visualization and processing:
 
-- [Build ML Model for Loan Eligibility using Modeler](https://developer.ibm.com/tutorials/predict-loan-eligibility-using-jupyter-notebook-ibm-spss-modeler/)
-- [Build ML Model to predict Chuurn](https://developer.ibm.com/patterns/predict-customer-churn-using-watson-studio-and-jupyter-notebooks/)
+- [Configure Streaming for Third Party Tools](https://ibm.github.io/cloud-enterprise-examples/log-streaming/configure-streaming-for-third-party-tools)
+- [Log Streaming](https://ibm.github.io/cloud-enterprise-examples/log-streaming/content-overview)
 - [Predict Fraud with Skewed Data](https://developer.ibm.com/patterns/predicting-fraud-using-skewed-data/)
 - [XGBoost Model on Client Purchases](https://developer.ibm.com/patterns/analyze-bank-marketing-data-using-xgboost-gain-insights-client-purchases/)
 - [ML Model on Medical Data](https://developer.ibm.com/patterns/analyze-open-medical-data-sets-to-gain-insights/)
