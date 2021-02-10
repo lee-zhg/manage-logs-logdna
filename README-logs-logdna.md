@@ -273,7 +273,7 @@ To trigger the LogDNA alert, you'll generate additional application log entries.
     exit
     ```
 
-1. Verify you received an email from 
+1. Verify you received an email from `LogDNA Alerts`.
 
     ```
     REST Call 🔔 (end of duration)
@@ -304,5 +304,78 @@ When you launch the IBM Log Analysis with LogDNA web UI, log entries are display
     * Change the log viewer text size by using the slider.
     * To add items to log view, drag the available items from the bottom line to the top line. 
     * To rearrange the order of the items, drag and drop the items in the top line until you have your desired view.
+
+
+## Step 8 - Configure exclusion rules 
+
+In an IBM Log Analysis with LogDNA instance, you can configure exclusion rules through the LogDNA web UI to stop logs from counting against your data usage quota and from being stored for search.
+
+### Step 8.1 - Create exclusion rules 
+
+1. Select the `Settings` icon in the left pane.
+
+1. Select `Usage` and then `Exclusion Rules`.
+
+1. Click `Add Rule` button. The Create Rule section opens.
+
+1. Enter `myExclusionRule` in the field `What is this rule for?`.
+
+1. In the `Apps` field, select `customers`.
+
+1. In the `Query` field, enter `level:debug`. The query exludes the Debug log entries.
+
+    !["access_iks_cluster"](doc/images/logdna23.png)
+
+1. Select `Preserve these lines for live-tail and alerting` to show through the live tail the log lines that are excluded. Notice that you can still use these log lines to set up an alert.
+
+1. Click `Save`.
+
+
+### Step 8.2 - Test exclusion rules
+
+To test the exclusion rule,
+
+1. Go back to the LogDNA homepage.
+
+1. Select `EVERYTHING`.
+
+1. Click `Apps` dropdown and filter the logs by selecting `customers` checkbox under `Containers`.
+
+1. `Apply`.
+
+1. Go to `IBM Cloud Shell` terminal.
+
+1. Verify that the Pod name was stored in the environment variable `API_GATEWAY_POD`.
+
+    ```
+    echo $API_GATEWAY_POD
+    ```
+
+  > Note: please revisit section `Generate application log entries`.
+
+1. Get into the `API-Gateway' pod.
+
+    ```
+    kubectl exec $API_GATEWAY_POD -ti sh
+    ```
+
+1. The prompt change shows that you are in the `API-Gateway` pod now.
+
+1. Copy/paste and Execute the following command in the pod. The script sends 100 requests to each service component.
+
+    ```
+    for i in `seq 1 3` ; do wget -q -O - http://customers-service/owners ; done
+    ```
+
+1. Exit the pod.
+
+    ```
+    exit
+    ```
+
+1. Go back to LogDNA UI, you should receive no new log entry by looking at the timestamp of the last log entry. This confirms that the newly generated log entries do not count against your data usage.
+
+1. Verify you received an email from `LogDNA Alerts`. This confirms that you can still receive alert based on the newly generated log entries although they don't count against your data usage.
+
 
 
