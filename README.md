@@ -48,11 +48,9 @@ The complete version of `petclinic` application with microservice architecture i
 
 There is lots of great information, tutorials, articles, etc on the [IBM Developer site](https://developer.ibm.com) as well as broader web. Here are a subset of good examples related to data understanding, visualization and processing:
 
-- [Configure Streaming for Third Party Tools](https://ibm.github.io/cloud-enterprise-examples/log-streaming/configure-streaming-for-third-party-tools)
-- [Log Streaming](https://ibm.github.io/cloud-enterprise-examples/log-streaming/content-overview)
-- [Predict Fraud with Skewed Data](https://developer.ibm.com/patterns/predicting-fraud-using-skewed-data/)
-- [XGBoost Model on Client Purchases](https://developer.ibm.com/patterns/analyze-bank-marketing-data-using-xgboost-gain-insights-client-purchases/)
-- [ML Model on Medical Data](https://developer.ibm.com/patterns/analyze-open-medical-data-sets-to-gain-insights/)
+- [Log Analysis with LogDNA Documentation](https://cloud.ibm.com/docs/Log-Analysis-with-LogDNA?topic=Log-Analysis-with-LogDNA-getting-started)
+- [LogDNA Documentation](https://docs.logdna.com/docs)
+- [LogDNA Blog](https://logdna.com/blog/)
 
 
 ## General Links
