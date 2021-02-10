@@ -73,10 +73,12 @@ If you know what you are looking for, it's easy and convenient to search log ent
 ## Step 3 - Filter logs for a specific container
 
 You can filter logs by tags, sources, containers or levels.
-    * Tags: related to IKS clusters
-    * Sources: related to IKS pods
-    * Containers: related to IKS containers. Since one containers typically runs one microservice per cloud native development best practice, each container should repsent one microservice. For example, `customers` container represents `customers` service component.
-    * Levels: related to log level, for example error or debug.
+* Tags: related to IKS clusters
+* Sources: related to IKS pods
+* Containers: related to IKS containers. Since one containers typically runs one microservice per cloud native development best practice, each container should represent one microservice. For example, `customers` container represents `customers` service component.
+* Levels: related to log level, for example error or debug.
+
+To filter logs,
 
 1. On LogDNA UI, select `EVERYTHING` in the top-left corner to clear the searching criteria and restore all log entries.
 
