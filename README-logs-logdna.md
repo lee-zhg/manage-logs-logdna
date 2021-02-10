@@ -31,7 +31,19 @@ If you know what you are looking for, it's easy and convenient to search log ent
 
     !["access_iks_cluster"](doc/images/logdna02.png)
 
-1. Review the search result. All remaining log entries contains string `GET "/owners"`
+1. Review the search result. All remaining log entries contains string `GET "/owners"`.
+
+1. Select any log entry and expand it by click the arraw in the front of the line.
+
+1. This displays detail information of the log entry.
+
+    !["access_iks_cluster"](doc/images/logdna19.png)
+
+1. Select `View in context`.
+
+1. The log line will be displayed in context of other log lines from that host, app, or both. This information is helpful when troubleshooting a problem.
+
+    !["access_iks_cluster"](doc/images/logdna20.png)
 
 1. Select `EVERYTHING` in the top-left corner to clear the searching criteria and restore all log entries.
 
@@ -225,7 +237,7 @@ To link alert and custom view in LogDNA,
 1. `Save Alert`.
 
 
-## Step 7 - Trigger alert
+### Step 6.4 - Trigger alert
 
 To trigger the LogDNA alert, you'll generate additional application log entries.
 
@@ -272,5 +284,23 @@ To trigger the LogDNA alert, you'll generate additional application log entries.
     ```
 
 
+## Step 7 - Review the log format
+
+When you launch the IBM Log Analysis with LogDNA web UI, log entries are displayed in a predefined format. You can modify how the log entries are displayed.
+
+> Note: Configuration changes of the log format in this section will affect all defined views. It's possible to change log format for individual view.
+
+1. Select the `Settings` icon in the left pane.
+
+1. Select `USER PREFERENCES`.
+
+1. Select `Log Format` tab.
+
+    !["access_iks_cluster"](doc/images/logdna18.png)
+
+1. Review the default log format and available log components. Do not make any change for this exercise.
+    * Change the log viewer text size by using the slider.
+    * To add items to log view, drag the available items from the bottom line to the top line. 
+    * To rearrange the order of the items, drag and drop the items in the top line until you have your desired view.
 
 
