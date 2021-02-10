@@ -378,4 +378,18 @@ To test the exclusion rule,
 1. Verify you received an email from `LogDNA Alerts`. This confirms that you can still receive alert based on the newly generated log entries although they don't count against your data usage.
 
 
+### Step 8.3 - Delete exclusion rules 
+
+The exclusion rule `myExclusionRule` should be deleted as it was created fopr demostration reason. Otherwise, your LogDNA may not as you expect.
+
+1. Select the `Settings` icon in the left pane.
+
+1. Select `Usage` and then `Exclusion Rules`.
+
+1. Click `Remove` link right the `myExclusionRule`.
+
+    > Note: you have to move mouse cursor into the `myExclusionRule` area to the see the `Remove` link.
+
+1. Confirm and click `Yes, delete`.
+
 
